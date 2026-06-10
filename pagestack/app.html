@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PageStack — Merge, split & reorder PDFs in your browser</title>
+  <meta name="description" content="Drop PDFs into one visual workspace: merge, split, reorder, rotate and delete pages — your files never leave your browser. Free, no sign-up, no limits." />
+  <link rel="stylesheet" href="../shared/theme.css" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="app-header">
+    <a class="brand" href="index.html" title="PageStack"><span class="logo" aria-hidden="true">▤</span> PageStack <span class="tag">your pages, your device</span></a>
+    <span class="spacer"></span>
+    <nav><a href="../index.html">All tools</a></nav>
+  </header>
+
+  <main class="workspace">
+    <div class="toolbar">
+      <label class="btn btn-sm" for="fileInput" id="btnAdd"></label>
+      <input type="file" id="fileInput" accept="application/pdf,image/jpeg,image/png" multiple class="sr-only" />
+      <span class="counts" id="counts"></span>
+      <span class="spacer"></span>
+      <span class="trustline" id="trustline" title="Everything runs locally — turn off your wifi and it still works."></span>
+      <button class="btn btn-sm btn-ghost" id="btnClear" hidden>Clear</button>
+      <button class="btn btn-sm" id="btnSplit" hidden></button>
+      <button class="btn btn-sm" id="btnExtract" hidden></button>
+      <button class="btn btn-sm btn-primary" id="btnDownload" hidden></button>
+    </div>
+
+    <div class="grid-scroll" id="gridScroll">
+      <div class="dropwrap" id="dropwrap">
+        <div class="dropzone" id="dropzone" tabindex="0" role="button" aria-label="Add PDFs or images">
+          <div class="dz-ic" aria-hidden="true"></div>
+          <div class="dz-title">Drop PDFs here — or click to choose</div>
+          <div class="dz-sub">Every page appears as a card. Drag to reorder, rotate, delete, extract.<br /><b>Files never leave your browser</b> — it even works offline. No limits, no sign-up.</div>
+        </div>
+      </div>
+      <div class="page-grid" id="pageGrid" hidden></div>
+    </div>
+  </main>
+
+  <script src="vendor/pdf-lib.min.js"></script>
+  <script src="vendor/pdf.min.js"></script>
+  <script src="vendor/jszip.min.js"></script>
+  <script src="../shared/app.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

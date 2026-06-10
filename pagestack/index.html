@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PageStack — Merge & split PDFs without uploading them</title>
+  <meta name="description" content="Merge, split, reorder and rotate PDF pages in one visual workspace. Your files never leave your browser — no upload, no limits, no sign-up. Free." />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="PageStack — Merge & split PDFs without uploading them" />
+  <meta property="og:description" content="One visual workspace for PDF pages. No upload, no limits, no sign-up." />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="stylesheet" href="../shared/theme.css" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* Exaggerated minimalism: oversized type, huge whitespace, flat. */
+    .lp { max-width: 980px; margin: 0 auto; padding: 0 24px; }
+    .lp-hero { text-align: center; padding: 92px 0 10px; }
+    .lp-eyebrow { display: inline-flex; align-items: center; gap: 8px; font-size: 12.5px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); margin-bottom: 28px; }
+    .lp-hero h1 { font-size: clamp(2.4rem, 7vw, 4.6rem); line-height: .98; letter-spacing: -.045em; font-weight: 800; max-width: 15ch; margin: 0 auto 24px; }
+    .lp-hero h1 em { font-style: normal; color: var(--accent); }
+    .lp-sub { font-size: clamp(1.05rem, 1.8vw, 1.3rem); color: var(--text-2); line-height: 1.55; max-width: 50ch; margin: 0 auto 36px; }
+    .lp-cta { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .btn-lg { padding: 16px 30px; font-size: 16.5px; border-radius: 12px; }
+    .lp-trust { display: flex; gap: 10px 22px; justify-content: center; flex-wrap: wrap; margin-top: 26px; font-size: 13.5px; color: var(--muted); font-weight: 600; }
+    .lp-trust span { display: inline-flex; align-items: center; gap: 6px; }
+    .lp-trust svg { width: 15px; height: 15px; color: var(--accent); }
+    /* the "one workspace" visual: row of page cards */
+    .strip { display: flex; gap: 12px; justify-content: center; padding: 56px 0 0; flex-wrap: wrap; }
+    .pcard { width: 92px; height: 120px; border-radius: 10px; background: var(--surface); border: 1.5px solid var(--border); box-shadow: var(--shadow-md); display: grid; place-items: center; font-weight: 800; font-size: 20px; color: var(--muted-2); position: relative; }
+    .pcard.b { border-color: var(--accent); color: var(--accent); transform: rotate(-3deg); }
+    .pcard.r { transform: rotate(4deg); }
+    .pcard .tag { position: absolute; top: -10px; right: -8px; font-size: 10px; font-weight: 800; letter-spacing: .04em; background: var(--accent); color: #fff; border-radius: 99px; padding: 3px 8px; }
+    .lp-section { padding: 84px 0 20px; }
+    .lp-section h2 { text-align: center; font-size: clamp(1.7rem, 3.4vw, 2.4rem); letter-spacing: -.03em; margin-bottom: 12px; }
+    .lp-section .sub { text-align: center; color: var(--muted); max-width: 52ch; margin: 0 auto 44px; font-size: 1.02rem; }
+    .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .fcard { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 26px 22px; }
+    .fcard h3 { font-size: 17px; margin-bottom: 7px; letter-spacing: -.01em; }
+    .fcard p { margin: 0; color: var(--muted); font-size: 14.5px; line-height: 1.55; }
+    .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; counter-reset: s; }
+    .step { padding: 22px; }
+    .step::before { counter-increment: s; content: counter(s); display: grid; place-items: center; width: 36px; height: 36px; border-radius: 50%; font-weight: 800; color: #fff; background: var(--accent); margin-bottom: 14px; }
+    .step h3 { font-size: 16px; margin-bottom: 6px; } .step p { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.5; }
+    .lp-final { text-align: center; padding: 40px 0 96px; }
+    .lp-final h2 { font-size: clamp(1.7rem, 3.6vw, 2.5rem); letter-spacing: -.03em; margin-bottom: 22px; }
+    @media (max-width: 800px) { .grid3, .steps { grid-template-columns: 1fr; } .lp-hero { padding-top: 60px; } }
+  </style>
+</head>
+<body>
+  <header class="app-header">
+    <a class="brand" href="../index.html"><span class="logo" aria-hidden="true">▤</span> PageStack <span class="tag">your pages, your device</span></a>
+    <span class="spacer"></span>
+    <nav><a href="../index.html">All tools</a> <a class="btn btn-sm btn-primary" href="app.html">Open the tool</a></nav>
+  </header>
+
+  <main>
+    <section class="lp lp-hero">
+      <span class="lp-eyebrow">No upload · no limits · no sign-up</span>
+      <h1>Your PDFs never need to <em>leave your laptop</em>.</h1>
+      <p class="lp-sub">Merge, split, reorder and rotate pages in one visual workspace — every page is a card you can drag. The big PDF sites upload your files to their servers and cap your tasks. PageStack does it all right here.</p>
+      <div class="lp-cta"><a class="btn btn-primary btn-lg" href="app.html">Open PageStack</a> <a class="btn btn-lg" href="#how">How it works</a></div>
+      <div class="lp-trust" id="trust"></div>
+
+      <div class="strip" aria-hidden="true">
+        <div class="pcard">1</div>
+        <div class="pcard b">2<span class="tag">drag</span></div>
+        <div class="pcard">3</div>
+        <div class="pcard r">4</div>
+        <div class="pcard">5</div>
+      </div>
+    </section>
+
+    <section class="lp lp-section">
+      <h2>One workspace. Every page op.</h2>
+      <p class="sub">No more "merge tool", "split tool", "rotate tool" — drop everything in and shape it.</p>
+      <div class="grid3" id="feats"></div>
+    </section>
+
+    <section class="lp lp-section" id="how">
+      <h2>Three steps, zero uploads</h2>
+      <div class="steps">
+        <div class="step"><h3>Drop your PDFs</h3><p>As many as you like — plus JPG/PNG images, which become pages. Everything stays in your browser.</p></div>
+        <div class="step"><h3>Shape the stack</h3><p>Drag pages to reorder across documents. Rotate, delete, or select just the pages you need.</p></div>
+        <div class="step"><h3>Download</h3><p>Bind the workspace into one PDF, extract the selected pages, or split every page into its own file.</p></div>
+      </div>
+    </section>
+
+    <section class="lp lp-final">
+      <h2>Stop uploading your contracts to strangers.</h2>
+      <a class="btn btn-primary btn-lg" href="app.html">Open PageStack</a>
+    </section>
+  </main>
+
+  <footer class="app-footer">PageStack · PDFs in your browser, even offline · <a href="../index.html">see all tools</a></footer>
+
+  <script src="../shared/app.js"></script>
+  <script>
+    const chk = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>';
+    document.getElementById("trust").innerHTML = ["Files never uploaded", "Works offline", "No task limits", "Free, no account"].map((t) => "<span>" + chk + t + "</span>").join("");
+    document.getElementById("feats").innerHTML = [
+      ["Merge & reorder visually", "Every page is a card in one grid — drag across documents, nudge with arrows, see exactly what you're building."],
+      ["Split & extract precisely", "Select any pages and extract them to a new PDF, or split the whole stack into one file per page."],
+      ["Private by architecture", "There is no server to upload to. Turn off your wifi — PageStack keeps working. Your contracts stay yours."],
+    ].map(([h, p]) => '<div class="fcard"><h3>' + h + "</h3><p>" + p + "</p></div>").join("");
+    VT.injectFavicon("▤", "#2563eb");
+  </script>
+</body>
+</html>

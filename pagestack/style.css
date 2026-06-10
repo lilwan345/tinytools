@@ -1,0 +1,84 @@
+/* ============================================================
+   PageStack — "Exaggerated Minimalism": paper white + document
+   grey + scan blue. One visual workspace for PDF pages.
+   Design dir: ui-ux-pro-max (flat, no heavy shadows, big type).
+   ============================================================ */
+:root {
+  --bg: #f8fafc; --bg-grad: var(--bg);
+  --surface: #ffffff; --surface-2: #f1f5f9; --surface-3: #e8edf3;
+  --border: #e4e8ee; --border-strong: #cfd6e0;
+  --text: #0f172a; --text-2: #334155; --muted: #64748b; --muted-2: #94a3b8;
+  --accent: #2563eb; --accent-strong: #1d4ed8; --accent-soft: #e8efff; --accent-contrast: #ffffff;
+  --danger: #dc2626; --danger-soft: #fee2e2;
+  --ring: 0 0 0 3px color-mix(in srgb, var(--accent) 30%, transparent);
+  --shadow-sm: 0 1px 2px rgba(15, 23, 42, .05);
+  --shadow-md: 0 4px 14px rgba(15, 23, 42, .08);
+  --shadow-lg: 0 16px 40px rgba(15, 23, 42, .12);
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0b1220; --surface: #111a2c; --surface-2: #18233a; --surface-3: #213049;
+    --border: #233048; --border-strong: #344662;
+    --text: #f1f5fb; --text-2: #cbd6e6; --muted: #8b9bb4; --muted-2: #62748e;
+    --accent: #3b82f6; --accent-strong: #2563eb; --accent-soft: #16233f;
+    --danger: #f87171; --danger-soft: #371a1a;
+  }
+}
+.brand .logo { background: linear-gradient(135deg, #1d4ed8, #3b82f6); }
+
+/* ---------- Workspace ---------- */
+.workspace { display: flex; flex-direction: column; height: calc(100vh - 55px); min-height: 0; }
+
+.toolbar { display: flex; align-items: center; gap: 9px; padding: 12px 18px; border-bottom: 1px solid var(--border); background: color-mix(in srgb, var(--surface) 75%, transparent); flex-wrap: wrap; }
+.toolbar .counts { font-size: 13px; font-weight: 600; color: var(--muted); font-variant-numeric: tabular-nums; }
+.toolbar .spacer { flex: 1; }
+.toolbar .trustline { display: inline-flex; align-items: center; gap: 6px; font-size: 12.5px; font-weight: 600; color: var(--accent); }
+.toolbar .trustline svg { width: 14px; height: 14px; }
+
+.grid-scroll { flex: 1; overflow: auto; min-height: 0; padding: 22px; }
+.page-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(168px, 1fr)); gap: 14px; align-content: start; }
+
+/* ---------- Page card ---------- */
+.pg { position: relative; border: 1.5px solid var(--border); border-radius: 12px; background: var(--surface); cursor: grab; transition: border-color var(--tap), box-shadow var(--tap), transform var(--tap), opacity var(--tap); user-select: none; -webkit-user-select: none; touch-action: none; outline: none; }
+.pg:hover { border-color: var(--border-strong); box-shadow: var(--shadow-md); }
+.pg:focus-visible { box-shadow: var(--ring); }
+.pg.sel { border-color: var(--accent); box-shadow: 0 0 0 1.5px var(--accent), var(--shadow-sm); }
+.pg.dragging { opacity: .35; }
+.pg-thumb { height: 178px; display: grid; place-items: center; overflow: hidden; border-radius: 10px 10px 0 0; background: repeating-conic-gradient(var(--surface-2) 0% 25%, var(--surface) 0% 50%) 50% / 18px 18px; }
+.pg-thumb img { max-width: 88%; max-height: 88%; box-shadow: 0 1px 6px rgba(15, 23, 42, .18); background: #fff; pointer-events: none; }
+.pg.rot-odd .pg-thumb img { max-width: 62%; max-height: 62%; }
+.pg-foot { display: flex; align-items: center; gap: 6px; padding: 7px 9px; border-top: 1px solid var(--border); }
+.pg-foot .num { font-size: 12px; font-weight: 800; color: var(--text-2); font-variant-numeric: tabular-nums; }
+.pg-foot .src { font-size: 11px; color: var(--muted-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; flex: 1; }
+
+/* selection check */
+.pg .ck { position: absolute; top: 8px; left: 8px; width: 22px; height: 22px; border-radius: 7px; border: 1.5px solid var(--border-strong); background: color-mix(in srgb, var(--surface) 88%, transparent); display: grid; place-items: center; color: transparent; z-index: 2; pointer-events: none; transition: background var(--tap), color var(--tap), border-color var(--tap); }
+.pg .ck svg { width: 13px; height: 13px; }
+.pg.sel .ck { background: var(--accent); border-color: var(--accent-strong); color: #fff; }
+
+/* hover actions */
+.pg-actions { position: absolute; top: 6px; right: 6px; display: none; gap: 3px; background: color-mix(in srgb, var(--surface) 94%, transparent); border: 1px solid var(--border-strong); border-radius: 9px; padding: 3px; z-index: 3; box-shadow: var(--shadow-md); }
+.pg:hover .pg-actions, .pg:focus-within .pg-actions { display: flex; }
+.pg-actions button { background: none; border: none; color: var(--text-2); cursor: pointer; padding: 5px; border-radius: 6px; display: grid; place-items: center; }
+.pg-actions button:hover { background: var(--surface-2); color: var(--accent); }
+.pg-actions button.del:hover { color: var(--danger); background: var(--danger-soft); }
+.pg-actions svg { width: 14px; height: 14px; display: block; }
+
+/* drag ghost + drop marker */
+.drag-ghost { position: fixed; z-index: 90; pointer-events: none; width: 120px; border-radius: 9px; overflow: hidden; box-shadow: var(--shadow-lg); transform: translate(-50%, -55%) rotate(3deg); border: 1.5px solid var(--accent); background: var(--surface); }
+.drag-ghost img { display: block; width: 100%; }
+.drop-marker { width: 4px; border-radius: 99px; background: var(--accent); margin: 4px -9px; box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent) 25%, transparent); }
+
+/* ---------- Dropzone / empty ---------- */
+.dropwrap { display: grid; place-items: center; min-height: 100%; }
+.dropzone { max-width: 560px; width: 100%; text-align: center; border: 2px dashed var(--border-strong); border-radius: 20px; padding: 58px 30px; cursor: pointer; transition: border-color var(--tap), background var(--tap); background: var(--surface); }
+.dropzone:hover, body.dragover .dropzone { border-color: var(--accent); background: var(--accent-soft); }
+.dropzone .dz-ic { width: 54px; height: 54px; margin: 0 auto 16px; border-radius: 15px; display: grid; place-items: center; color: #fff; background: linear-gradient(135deg, #1d4ed8, #3b82f6); }
+.dropzone .dz-ic svg { width: 26px; height: 26px; }
+.dropzone .dz-title { font-size: clamp(19px, 2.6vw, 24px); font-weight: 800; letter-spacing: -.02em; color: var(--text); }
+.dropzone .dz-sub { font-size: 14px; color: var(--muted); margin-top: 8px; line-height: 1.55; }
+.dropzone .dz-sub b { color: var(--accent); }
+body.dragover::after { content: "Drop to add pages"; position: fixed; inset: 0; display: grid; place-items: center; font-size: clamp(22px, 4vw, 34px); font-weight: 800; letter-spacing: -.02em; color: var(--accent); background: color-mix(in srgb, var(--accent-soft) 82%, transparent); border: 3px dashed var(--accent); border-radius: 18px; margin: 10px; z-index: 80; pointer-events: none; }
+
+@media (max-width: 700px) { .page-grid { grid-template-columns: repeat(auto-fill, minmax(128px, 1fr)); } .pg-thumb { height: 138px; } }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }

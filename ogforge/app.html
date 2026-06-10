@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OGForge — Make social cards & Open Graph images in your browser</title>
+  <meta name="description" content="Design Open Graph preview images, quote cards, and announcement cards — entirely in your browser — then download the PNG. Free, no sign-up." />
+  <link rel="stylesheet" href="../shared/theme.css" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="app-header">
+    <a class="brand" href="index.html" title="OGForge"><span class="logo" aria-hidden="true">▭</span> OGForge <span class="tag">social cards</span></a>
+    <span class="spacer"></span>
+    <nav><a href="../index.html">All tools</a></nav>
+  </header>
+
+  <main class="workspace">
+    <aside class="controls">
+      <details class="sec" open><summary>Template</summary><div class="sec-body"><div class="tpl-grid" id="tplGrid"></div></div></details>
+
+      <details class="sec" open><summary>Size</summary><div class="sec-body">
+        <div class="seg seg-wrap" id="sizeSeg" role="group">
+          <button data-v="og" aria-pressed="true">OG 1200×630</button>
+          <button data-v="wide" aria-pressed="false">Wide 16:9</button>
+          <button data-v="square" aria-pressed="false">Square</button>
+          <button data-v="story" aria-pressed="false">Story</button>
+        </div>
+      </div></details>
+
+      <details class="sec" open><summary>Content</summary><div class="sec-body">
+        <div class="ctl"><label class="ctl-label" for="tTitle">Title</label><textarea id="tTitle" class="tt">Build viral tools in your browser</textarea></div>
+        <div class="ctl"><label class="ctl-label" for="tSub">Subtitle</label><textarea id="tSub" class="tt">Five free, fast, 100% client-side web tools.</textarea></div>
+        <div class="ctl"><label class="ctl-label" for="tEye">Eyebrow / tag</label><input type="text" id="tEye" value="VIRAL-TOOLS" maxlength="40" /></div>
+        <div class="ctl" id="attrRow" hidden><label class="ctl-label" for="tAttr">Attribution</label><input type="text" id="tAttr" value="— Leo Wan" maxlength="60" /></div>
+      </div></details>
+
+      <details class="sec"><summary>Background</summary><div class="sec-body">
+        <div class="ctl bg-grid" id="bgGrid" role="group"></div>
+        <div class="ctl ctl-inline"><span class="ctl-label" style="margin:0">Custom gradient</span><span class="row" style="gap:6px"><input type="color" id="gc1" value="#e11d48" /><input type="color" id="gc2" value="#2563eb" /></span></div>
+        <div class="ctl"><span class="ctl-label">Angle</span><div class="range-row"><input type="range" id="gAngle" min="0" max="360" value="135" /><output id="gAngleOut">135</output></div></div>
+        <div class="ctl ctl-inline"><span class="ctl-label" style="margin:0">Solid</span><input type="color" id="solidColor" value="#0f172a" /></div>
+        <div class="ctl row wrap" style="gap:8px"><label class="btn btn-sm" for="bgImg">Upload image</label><input type="file" id="bgImg" accept="image/*" class="sr-only" /><button class="btn btn-sm btn-ghost" id="bgImgClear">Remove</button></div>
+        <div class="ctl"><span class="ctl-label">Image darken (scrim)</span><div class="range-row"><input type="range" id="scrim" min="0" max="80" value="38" /><output id="scrimOut">38</output></div></div>
+        <div class="ctl"><span class="ctl-label">Texture</span><div class="seg" id="texSeg" role="group"><button data-v="" aria-pressed="true">None</button><button data-v="dots" aria-pressed="false">Dots</button><button data-v="grid" aria-pressed="false">Grid</button><button data-v="noise" aria-pressed="false">Noise</button></div></div>
+      </div></details>
+
+      <details class="sec"><summary>Branding</summary><div class="sec-body">
+        <div class="ctl row wrap" style="gap:8px"><label class="btn btn-sm" for="logoImg">Upload logo</label><input type="file" id="logoImg" accept="image/*" class="sr-only" /><button class="btn btn-sm btn-ghost" id="logoClear">Remove</button></div>
+        <div class="ctl row wrap" style="gap:8px"><label class="btn btn-sm" for="avatarImg">Upload avatar</label><input type="file" id="avatarImg" accept="image/*" class="sr-only" /><button class="btn btn-sm btn-ghost" id="avatarClear">Remove</button></div>
+        <div class="row2"><div class="ctl"><label class="ctl-label" for="tName">Author</label><input type="text" id="tName" placeholder="Leo Wan" maxlength="40" /></div><div class="ctl"><label class="ctl-label" for="tHandle">@handle</label><input type="text" id="tHandle" placeholder="@leowan" maxlength="40" /></div></div>
+        <div class="ctl"><label class="ctl-label" for="tSite">Site name</label><input type="text" id="tSite" placeholder="viraltools.dev" maxlength="50" /></div>
+        <div class="ctl ctl-inline" style="gap:8px"><span class="hint" style="margin:0;flex:1">Logo, avatar, handle &amp; colors are remembered on this device.</span><button class="btn btn-sm btn-ghost" id="kitClear">Forget</button></div>
+      </div></details>
+
+      <details class="sec"><summary>Style</summary><div class="sec-body">
+        <div class="ctl ctl-inline"><span class="ctl-label" style="margin:0">Accent color</span><input type="color" id="accent" value="#ffffff" /></div>
+        <div class="ctl"><label class="ctl-label" for="fontSel">Font</label><select id="fontSel">
+          <option value="'Inter',sans-serif">Inter</option>
+          <option value="'DM Sans',sans-serif">DM Sans</option>
+          <option value="'Nunito',sans-serif">Nunito</option>
+          <option value="'Space Grotesk',sans-serif">Space Grotesk</option>
+          <option value="Georgia,serif">Georgia (serif)</option>
+        </select></div>
+        <div class="ctl"><span class="ctl-label">Title size</span><div class="range-row"><input type="range" id="titleSize" min="36" max="104" value="66" /><output id="titleSizeOut">66</output></div></div>
+      </div></details>
+    </aside>
+
+    <section class="stage">
+      <div class="stage-bar">
+        <span class="dims" id="dims">1200 × 630</span>
+        <span class="spacer"></span>
+        <button class="btn btn-sm" id="btnMeta"></button>
+        <button class="btn btn-sm btn-primary" id="btnPng"></button>
+      </div>
+      <div class="stage-scroll" id="stageScroll">
+        <div class="card-scale" id="cardScale">
+          <div id="card" class="tpl-centered">
+            <div class="og-bg" id="ogBg"></div>
+            <div class="og-scrim" id="ogScrim"></div>
+            <div class="og-texture" id="ogTexture"></div>
+            <img class="og-logo" id="ogLogo" alt="" hidden />
+            <div class="og-content">
+              <div class="og-eyebrow" id="ogEyebrow" hidden><span class="tagdot"></span><span id="ogEyebrowT"></span></div>
+              <div class="og-quote" id="ogQuote" hidden>&ldquo;</div>
+              <div class="og-title" id="ogTitle"></div>
+              <div class="og-subtitle" id="ogSubtitle" hidden></div>
+              <div class="og-attr" id="ogAttr" hidden></div>
+            </div>
+            <div class="og-brand" id="ogBrand" hidden>
+              <img class="avatar" id="ogAvatar" alt="" hidden />
+              <div class="who"><span class="nm" id="ogName"></span><span class="hd" id="ogHandle"></span></div>
+              <span class="spacer"></span>
+              <span class="site" id="ogSite"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="../shared/vendor/html-to-image.js"></script>
+  <script src="../shared/app.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

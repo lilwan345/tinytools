@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HueProof — Prove your palette passes WCAG contrast</title>
+  <meta name="description" content="Build a color palette and instantly see — and share — which pairings pass WCAG AA/AAA contrast. Accessibility-first. 100% in your browser, free, no sign-up." />
+  <link rel="stylesheet" href="../shared/theme.css" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="app-header">
+    <a class="brand" href="index.html" title="HueProof"><span class="logo" aria-hidden="true">◑</span> HueProof <span class="tag">contrast, proven</span></a>
+    <span class="spacer"></span>
+    <nav><a href="../index.html">All tools</a></nav>
+  </header>
+
+  <main class="wrap">
+    <div class="bar">
+      <h2 class="display">Palette</h2>
+      <span class="spacer"></span>
+      <label class="ctl-label" for="harmony" style="margin:0">Harmony</label>
+      <span class="harmony"><select id="harmony" aria-label="Generate harmony">
+        <option value="">choose…</option>
+        <option value="complementary">Complementary</option>
+        <option value="analogous">Analogous</option>
+        <option value="triadic">Triadic</option>
+        <option value="tetradic">Tetradic</option>
+        <option value="monochrome">Monochrome</option>
+      </select></span>
+      <button class="btn btn-sm" id="btnRandom">Randomize</button>
+      <label class="btn btn-sm" for="imgInput">Extract from image</label>
+      <input type="file" id="imgInput" accept="image/*" class="sr-only" />
+      <button class="btn btn-sm" id="btnShare"></button>
+      <button class="btn btn-sm btn-primary" id="btnCard"></button>
+    </div>
+
+    <div class="palette" id="palette"></div>
+
+    <div class="panels">
+      <section class="panel" id="ccPanel" aria-label="Contrast checker">
+        <h2>Contrast checker</h2>
+        <div class="psub">Pick a text color and a background. WCAG 2.1.</div>
+        <div class="cc-pair">
+          <div class="cc-slot" id="slotFg" role="button" tabindex="0"><div class="sw" id="swFg"></div><div class="lab"><span>Text</span><span id="fgHex">#18181B</span></div></div>
+          <div class="cc-slot" id="slotBg" role="button" tabindex="0"><div class="sw" id="swBg"></div><div class="lab"><span>Background</span><span id="bgHex">#FFFFFF</span></div></div>
+        </div>
+        <div class="cc-ratio"><span class="num" id="ccNum">21</span><span class="x">:1</span></div>
+        <div class="cc-badges" id="ccBadges"></div>
+        <div class="cc-sample" id="ccSample"><div class="lg">Large text sample</div><div class="sm">Normal body text — the quick brown fox jumps over the lazy dog.</div></div>
+      </section>
+
+      <section class="panel" aria-label="Accessibility matrix">
+        <h2>Accessible-pairings matrix</h2>
+        <div class="psub">Every pair in your palette, as text-on-background. The number is the contrast ratio; click a cell to load it above.</div>
+        <div class="matrix" id="matrix"></div>
+        <div class="legend">
+          <span><b style="background:var(--pass)"></b> AA pass (≥4.5)</span>
+          <span><b style="background:var(--warn)"></b> Large only (≥3)</span>
+          <span><b style="background:var(--fail)"></b> Fail (&lt;3)</span>
+        </div>
+      </section>
+    </div>
+
+    <section class="panel codepanel" aria-label="Export to code">
+      <div class="row between" style="align-items:flex-start;gap:12px;flex-wrap:wrap">
+        <div><h2>Export to code</h2><div class="psub">Drop the palette straight into your stylesheet — no re-typing hexes.</div></div>
+        <button class="btn btn-sm btn-primary" id="btnCopyCode"></button>
+      </div>
+      <div class="seg seg-wrap" id="codeSeg" role="group" aria-label="Format" style="margin-bottom:10px">
+        <button data-v="css" aria-pressed="true">CSS vars</button>
+        <button data-v="tailwind" aria-pressed="false">Tailwind</button>
+        <button data-v="scss" aria-pressed="false">SCSS</button>
+        <button data-v="json" aria-pressed="false">JSON</button>
+        <button data-v="hex" aria-pressed="false">Hex list</button>
+      </div>
+      <pre class="codeout" id="codeOut"></pre>
+    </section>
+  </main>
+
+  <div class="card-stage" aria-hidden="true"><div class="share-card" id="shareCard"></div></div>
+
+  <script src="../shared/vendor/html-to-image.js"></script>
+  <script src="../shared/app.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

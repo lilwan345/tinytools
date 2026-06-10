@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BadgeForge — Design static badges & status cards for your README</title>
+  <meta name="description" content="Forge beautiful static badges and status cards for your README, site, or socials — then download the SVG/PNG or copy the code. 100% in your browser, free, no sign-up." />
+  <link rel="stylesheet" href="../shared/theme.css" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="app-header">
+    <a class="brand" href="index.html" title="BadgeForge"><span class="logo" aria-hidden="true">❏</span> BadgeForge <span class="tag">forge your badges</span></a>
+    <span class="spacer"></span>
+    <nav><a href="../index.html">All tools</a></nav>
+  </header>
+
+  <main class="workspace">
+    <aside class="builder">
+      <div class="tabs" id="tabs" role="tablist">
+        <button role="tab" data-tab="badge" aria-selected="true">Badge</button>
+        <button role="tab" data-tab="card" aria-selected="false">Status card</button>
+      </div>
+
+      <!-- BADGE -->
+      <div id="panelBadge">
+        <div class="row2">
+          <div class="ctl"><label class="ctl-label" for="bLabel">Label</label><input type="text" id="bLabel" value="build" maxlength="40" /></div>
+          <div class="ctl"><label class="ctl-label" for="bMsg">Message</label><input type="text" id="bMsg" value="passing" maxlength="40" /></div>
+        </div>
+        <div class="ctl"><span class="ctl-label">Message color</span><div class="palette" id="msgPalette"></div></div>
+        <div class="ctl ctl-inline"><span class="ctl-label" style="margin:0">Custom message color</span><input type="color" id="bColor" value="#22c55e" /></div>
+        <div class="ctl ctl-inline"><span class="ctl-label" style="margin:0">Label color</span><input type="color" id="bLabelColor" value="#555555" /></div>
+        <div class="ctl"><span class="ctl-label">Style</span>
+          <div class="seg" id="styleSeg" role="group"><button data-v="flat" aria-pressed="true">flat</button><button data-v="flat-square" aria-pressed="false">square</button><button data-v="for-the-badge" aria-pressed="false">for-the-badge</button></div>
+        </div>
+        <div class="ctl">
+          <span class="ctl-label">Logo</span>
+          <div class="logo-bar"><span class="logo-current" id="logoCurrent" title="current logo"></span><input type="text" id="iconSearch" placeholder="search 60+ icons (react, docker…)" class="grow" /><button class="btn btn-sm btn-ghost" id="logoNone">None</button></div>
+          <div class="icon-grid" id="iconGrid"></div>
+          <div class="ctl-inline" style="margin-top:8px"><span class="ctl-label" style="margin:0">or paste custom SVG</span><button class="btn btn-sm" id="logoPaste">Paste SVG</button></div>
+        </div>
+      </div>
+
+      <!-- CARD -->
+      <div id="panelCard" hidden>
+        <div class="ctl"><label class="ctl-label" for="cTitle">Title</label><input type="text" id="cTitle" value="Project Stats" maxlength="60" /></div>
+        <div class="ctl"><label class="ctl-label" for="cSub">Subtitle (optional)</label><input type="text" id="cSub" placeholder="e.g. updated weekly" maxlength="80" /></div>
+        <div class="ctl"><span class="ctl-label">Accent</span><div class="palette" id="cardPalette"></div></div>
+        <div class="ctl ctl-inline"><span class="ctl-label" style="margin:0">Custom accent</span><input type="color" id="cAccent" value="#f59e0b" /></div>
+        <div class="ctl"><span class="ctl-label">Theme</span><div class="seg" id="cardThemeSeg" role="group"><button data-v="dark" aria-pressed="true">Dark</button><button data-v="light" aria-pressed="false">Light</button></div></div>
+        <div class="ctl"><span class="ctl-label">Stats</span><div class="stat-rows" id="statRows"></div><button class="btn btn-sm btn-ghost" id="addStat" style="margin-top:8px">+ Add stat</button></div>
+      </div>
+
+      <button class="btn btn-primary" id="btnPin" style="width:100%;margin-top:8px"></button>
+      <div class="note">For a <b>README</b>: hit <b>Live URL</b> / <b>Markdown</b> — it hands you a hosted <b>shields.io</b> link (renders live on GitHub, no self-hosting). For sites / Notion / a status card: copy the inline SVG or download the <b>.svg</b>/<b>.png</b> you own.</div>
+    </aside>
+
+    <section class="stage">
+      <div class="preview-bar">
+        <div class="pv-label">Live preview</div>
+        <div class="preview-live" id="previewLive"></div>
+        <div class="pv-actions">
+          <button class="btn btn-sm btn-primary" id="copyShields"></button>
+          <button class="btn btn-sm" id="copyMd"></button>
+          <button class="btn btn-sm" id="copySvg"></button>
+          <button class="btn btn-sm" id="copyImg"></button>
+          <button class="btn btn-sm" id="dlSvg"></button>
+          <button class="btn btn-sm" id="dlPng"></button>
+        </div>
+      </div>
+      <div class="board-wrap">
+        <div class="board-head">
+          <span class="bh-title">Board <span class="muted" id="boardCount"></span></span>
+          <span class="spacer"></span>
+          <div class="seg" id="bgSeg" role="group" aria-label="Board background"><button data-v="dark" aria-pressed="true">Dark</button><button data-v="light" aria-pressed="false">Light</button></div>
+          <button class="btn btn-sm" id="clearBoard">Clear</button>
+          <button class="btn btn-sm btn-primary" id="exportBoard"></button>
+        </div>
+        <div class="board bg-dark" id="board"></div>
+      </div>
+    </section>
+  </main>
+
+  <script src="vendor/icons.js"></script>
+  <script src="../shared/app.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

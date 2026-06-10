@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TableShot — Turn any table or CSV into a beautiful image</title>
+  <meta name="description" content="Paste a table, spreadsheet, or CSV and instantly turn it into a clean, shareable image. 100% in your browser — nothing is uploaded. Free, no sign-up." />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="TableShot — Turn any table into a beautiful image" />
+  <meta property="og:description" content="Paste a table or CSV, get a clean shareable image. Free, in-browser, no sign-up." />
+  <meta property="og:image" content="og.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="stylesheet" href="../shared/theme.css" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="app-header">
+    <a class="brand" href="index.html" title="TableShot home">
+      <span class="logo" aria-hidden="true">▦</span>
+      TableShot <span class="tag">table → image</span>
+    </a>
+    <span class="spacer"></span>
+    <nav><a href="../index.html">All tools</a></nav>
+  </header>
+
+  <main class="workspace">
+    <!-- ============ CONTROLS ============ -->
+    <aside class="controls">
+
+      <details class="sec" open>
+        <summary>Data</summary>
+        <div class="sec-body">
+          <div class="ctl">
+            <label class="ctl-label" for="data">Paste a table or CSV</label>
+            <textarea id="data" spellcheck="false"
+              placeholder="Paste from Excel / Google Sheets (⌘V / Ctrl+V), or type CSV:&#10;Name, Role, MRR&#10;Acme, Pro, 1200&#10;Globex, Free, 0"></textarea>
+            <div class="hint" style="margin-top:6px">Copy cells from a spreadsheet and paste anywhere — nothing leaves your browser.</div>
+          </div>
+          <div class="ctl row wrap" style="gap:8px">
+            <button class="btn btn-sm" id="btnSample">Load sample</button>
+            <button class="btn btn-sm btn-ghost" id="btnClear">Clear</button>
+          </div>
+          <div class="ctl"><label class="switch"><input type="checkbox" id="optHeader" checked /><span class="track"></span> First row is a header</label></div>
+        </div>
+      </details>
+
+      <details class="sec" open>
+        <summary>Theme</summary>
+        <div class="sec-body"><div class="theme-grid" id="themeGrid" role="group" aria-label="Theme"></div></div>
+      </details>
+
+      <details class="sec">
+        <summary>Background</summary>
+        <div class="sec-body">
+          <div class="ctl bg-grid" id="bgGrid" role="group" aria-label="Background"></div>
+          <div class="ctl ctl-inline" id="bgSolidRow" hidden>
+            <span class="ctl-label" style="margin:0">Solid color</span><input type="color" id="bgColor" value="#0f172a" />
+          </div>
+          <div id="gradRow" hidden>
+            <div class="ctl ctl-inline"><span class="ctl-label" style="margin:0">Gradient</span><span class="row" style="gap:6px"><input type="color" id="gradC1" value="#6d28d9" /><input type="color" id="gradC2" value="#2563eb" /></span></div>
+            <div class="ctl"><span class="ctl-label">Angle</span><div class="range-row"><input type="range" id="gradAngle" min="0" max="360" value="135" /><output id="gradAngleOut">135</output></div></div>
+          </div>
+          <div id="imgRow" hidden>
+            <div class="ctl row wrap" style="gap:8px">
+              <label class="btn btn-sm" for="bgImageFile">Upload image…</label>
+              <input type="file" id="bgImageFile" accept="image/*" class="sr-only" />
+              <button class="btn btn-sm btn-ghost" id="bgImageClear">Remove</button>
+            </div>
+            <div class="ctl"><span class="ctl-label">Fit</span><div class="seg" id="bgFitSeg" role="group"><button data-v="cover" aria-pressed="true">Cover</button><button data-v="contain" aria-pressed="false">Contain</button></div></div>
+          </div>
+        </div>
+      </details>
+
+      <details class="sec">
+        <summary>Size</summary>
+        <div class="sec-body">
+          <div class="seg seg-wrap" id="sizeSeg" role="group" aria-label="Export size">
+            <button data-v="fit" aria-pressed="true">Fit</button>
+            <button data-v="1:1" aria-pressed="false">1:1</button>
+            <button data-v="4:5" aria-pressed="false">4:5</button>
+            <button data-v="16:9" aria-pressed="false">16:9</button>
+            <button data-v="1.91:1" aria-pressed="false">Twitter</button>
+            <button data-v="9:16" aria-pressed="false">Story</button>
+          </div>
+          <div class="hint" style="margin-top:8px">“Fit” = sized to the table. The others pad the canvas to a social aspect ratio.</div>
+        </div>
+      </details>
+
+      <details class="sec">
+        <summary>Style</summary>
+        <div class="sec-body">
+          <div class="ctl"><label class="switch"><input type="checkbox" id="optChrome" checked /><span class="track"></span> Window bar (macOS dots)</label></div>
+          <div class="ctl"><span class="ctl-label">Font</span>
+            <div class="seg" id="fontSeg" role="group" aria-label="Font">
+              <button data-v="" aria-pressed="true">Theme</button><button data-v="sans" aria-pressed="false">Sans</button><button data-v="serif" aria-pressed="false">Serif</button><button data-v="mono" aria-pressed="false">Mono</button>
+            </div>
+          </div>
+          <div class="ctl ctl-inline"><span class="ctl-label" style="margin:0">Accent color</span><input type="color" id="accentColor" value="#6d28d9" /></div>
+          <div class="ctl"><span class="ctl-label">Density (cell padding)</span><div class="range-row"><input type="range" id="density" min="6" max="22" value="12" /><output id="densityOut">12</output></div></div>
+          <div class="ctl"><span class="ctl-label">Corner radius</span><div class="range-row"><input type="range" id="radius" min="0" max="28" value="16" /><output id="radiusOut">16</output></div></div>
+          <div class="ctl"><span class="ctl-label">Outer padding</span><div class="range-row"><input type="range" id="pad" min="0" max="120" value="48" /><output id="padOut">48</output></div></div>
+          <div class="ctl"><span class="ctl-label">Font size</span><div class="range-row"><input type="range" id="fsize" min="11" max="24" value="15" /><output id="fsizeOut">15</output></div></div>
+          <div class="ctl"><label class="switch"><input type="checkbox" id="optZebra" checked /><span class="track"></span> Zebra stripes</label></div>
+          <div class="ctl"><label class="switch"><input type="checkbox" id="optFirstcol" /><span class="track"></span> Emphasize first column</label></div>
+          <div class="ctl"><label class="switch"><input type="checkbox" id="optHeaderUpper" /><span class="track"></span> Uppercase headers</label></div>
+          <div class="ctl"><label class="switch"><input type="checkbox" id="optRownum" /><span class="track"></span> Row numbers</label></div>
+          <div class="ctl"><label class="switch"><input type="checkbox" id="optWrap" /><span class="track"></span> Wrap long cells</label></div>
+          <div class="ctl" id="colMaxRow" hidden><span class="ctl-label">Max column width</span><div class="range-row"><input type="range" id="colMax" min="120" max="520" value="280" /><output id="colMaxOut">280</output></div></div>
+        </div>
+      </details>
+
+      <details class="sec">
+        <summary>Columns & sort</summary>
+        <div class="sec-body">
+          <div class="ctl">
+            <span class="ctl-label">Sort by</span>
+            <div class="row" style="gap:8px">
+              <select id="sortCol" class="grow"><option value="">— none —</option></select>
+              <div class="seg" id="sortDirSeg" role="group"><button data-v="asc" aria-pressed="true">↑</button><button data-v="desc" aria-pressed="false">↓</button></div>
+            </div>
+          </div>
+          <span class="ctl-label">Per-column (align · hide)</span>
+          <div id="colsCtl" class="cols-ctl"></div>
+          <div class="hint">Tip: click a row in the preview to highlight it.</div>
+        </div>
+      </details>
+
+      <details class="sec">
+        <summary>Numbers</summary>
+        <div class="sec-body">
+          <div class="ctl"><label class="switch"><input type="checkbox" id="optAutonum" checked /><span class="track"></span> Right-align number columns</label></div>
+          <div class="ctl"><label class="switch"><input type="checkbox" id="optThousands" /><span class="track"></span> Thousands separators (1,234)</label></div>
+          <div class="ctl"><span class="ctl-label">Decimal places</span>
+            <div class="seg" id="decimalsSeg" role="group"><button data-v="auto" aria-pressed="true">Auto</button><button data-v="0" aria-pressed="false">0</button><button data-v="1" aria-pressed="false">1</button><button data-v="2" aria-pressed="false">2</button></div>
+          </div>
+        </div>
+      </details>
+
+      <details class="sec">
+        <summary>Labels & brand</summary>
+        <div class="sec-body">
+          <div class="ctl"><label class="ctl-label" for="titleInput">Title</label><input type="text" id="titleInput" placeholder="e.g. Q3 Revenue by Plan" maxlength="120" /></div>
+          <div class="ctl"><label class="ctl-label" for="subtitleInput">Subtitle</label><input type="text" id="subtitleInput" placeholder="optional" maxlength="140" /></div>
+          <div class="ctl"><span class="ctl-label">Title align</span><div class="seg" id="titleAlignSeg" role="group"><button data-v="left" aria-pressed="true">Left</button><button data-v="center" aria-pressed="false">Center</button></div></div>
+          <div class="ctl"><label class="ctl-label" for="captionInput">Caption</label><input type="text" id="captionInput" placeholder="e.g. Source: internal, Sep 2026" maxlength="160" /></div>
+          <div class="ctl"><label class="switch"><input type="checkbox" id="optMark" checked /><span class="track"></span> Show watermark</label></div>
+          <div class="ctl" id="markRow"><label class="ctl-label" for="markInput">Watermark text</label><input type="text" id="markInput" placeholder="made with TableShot" maxlength="60" /></div>
+          <div class="ctl row wrap" style="gap:8px">
+            <label class="btn btn-sm" for="logoFile">Upload logo…</label>
+            <input type="file" id="logoFile" accept="image/*" class="sr-only" />
+            <button class="btn btn-sm btn-ghost" id="logoClear">Remove logo</button>
+          </div>
+        </div>
+      </details>
+    </aside>
+
+    <!-- ============ STAGE ============ -->
+    <section class="stage">
+      <div class="stage-bar">
+        <div class="seg" id="scaleSeg" role="group" aria-label="Export scale">
+          <button data-v="1" aria-pressed="false">1×</button><button data-v="2" aria-pressed="true">2×</button><button data-v="3" aria-pressed="false">3×</button>
+        </div>
+        <span class="dims" id="dims"></span>
+        <span class="spacer"></span>
+        <button class="btn btn-sm" id="btnMd"></button>
+        <button class="btn btn-sm" id="btnCopy"></button>
+        <button class="btn btn-sm" id="btnShare"></button>
+        <button class="btn btn-sm btn-primary" id="btnPng"></button>
+      </div>
+      <div class="stage-scroll" id="stageScroll">
+        <div class="stage-pad">
+          <div id="shot" class="shot chrome t-aurora">
+            <div class="shot-inner">
+              <div class="shot-bar"><span class="dots"><b></b><b></b><b></b></span><span class="bar-title" id="barTitle"></span></div>
+              <img class="shot-logo" id="shotLogo" alt="" hidden />
+              <div class="shot-head" id="shotHead" hidden>
+                <div class="shot-title" id="shotTitle" hidden></div>
+                <div class="shot-subtitle" id="shotSubtitle" hidden></div>
+              </div>
+              <div class="tbl-wrap"><table class="tbl" id="tbl"></table></div>
+              <div class="shot-caption" id="shotCaption" hidden></div>
+              <div class="shot-mark" id="shotMark" hidden>made with <b>TableShot</b></div>
+            </div>
+          </div>
+          <div class="empty" id="emptyState" hidden>
+            <div class="ic" aria-hidden="true">▦</div>
+            <div class="big">Paste your data to begin</div>
+            <div>Copy cells from a spreadsheet and press <kbd>⌘V</kbd> / <kbd>Ctrl V</kbd>, or click <b>Load sample</b>.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="../shared/vendor/lz-string.min.js"></script>
+  <script src="../shared/vendor/html-to-image.js"></script>
+  <script src="vendor/papaparse.min.js"></script>
+  <script src="../shared/app.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

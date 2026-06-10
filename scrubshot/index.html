@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ScrubShot — See what your photos are leaking, then erase it</title>
+  <meta name="description" content="Your photos carry hidden metadata — GPS location, camera, exact time, serial number. ScrubShot shows you, then strips it. 100% in your browser, nothing uploaded, works offline." />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="ScrubShot — See what your photos are leaking" />
+  <meta property="og:description" content="Strip GPS & metadata from photos. 100% in your browser, nothing uploaded." />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="stylesheet" href="../shared/theme.css" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .lp { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+    .lp-hero { text-align: center; padding: 76px 0 8px; }
+    .lp-eyebrow { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-tech); font-size: 12px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--accent); background: var(--accent-soft); border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent); padding: 6px 13px; border-radius: 99px; margin-bottom: 24px; }
+    .lp-eyebrow .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 8px var(--accent); }
+    .lp-hero h1 { font-size: clamp(2rem, 5.4vw, 3.5rem); line-height: 1.07; letter-spacing: -.035em; max-width: 17ch; margin: 0 auto 18px; }
+    .lp-hero h1 .lk { color: var(--danger); }
+    .lp-sub { font-size: clamp(1rem, 1.6vw, 1.2rem); color: var(--text-2); line-height: 1.55; max-width: 56ch; margin: 0 auto 30px; }
+    .lp-cta { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .btn-lg { padding: 14px 26px; font-size: 15.5px; border-radius: var(--radius); }
+    .lp-trust { display: flex; gap: 8px 20px; justify-content: center; flex-wrap: wrap; margin-top: 24px; font-family: var(--font-tech); font-size: 12.5px; color: var(--muted); }
+    .lp-trust span { display: inline-flex; align-items: center; gap: 6px; }
+    .lp-trust svg { width: 15px; height: 15px; color: var(--accent); }
+    .lp-section { padding: 60px 0; }
+    .lp-section h2 { text-align: center; font-size: clamp(1.5rem, 3vw, 2.1rem); letter-spacing: -.02em; margin-bottom: 10px; }
+    .lp-section .sub { text-align: center; color: var(--muted); max-width: 52ch; margin: 0 auto 40px; }
+    .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .rcard { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 24px; transition: transform var(--tap), border-color var(--tap); }
+    .rcard:hover { transform: translateY(-3px); border-color: var(--border-strong); }
+    .rcard .ic { width: 42px; height: 42px; border-radius: 11px; display: grid; place-items: center; margin-bottom: 15px; background: var(--danger-soft); color: var(--danger); }
+    .rcard.safe .ic { background: var(--accent-soft); color: var(--accent); }
+    .rcard .ic svg { width: 22px; height: 22px; }
+    .rcard h3 { font-size: 16.5px; margin-bottom: 6px; }
+    .rcard p { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.55; }
+    .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; counter-reset: s; }
+    .step { padding: 22px; }
+    .step::before { counter-increment: s; content: counter(s); display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; font-family: var(--font-tech); font-weight: 700; color: var(--accent-contrast); background: linear-gradient(135deg, var(--accent), var(--accent-strong)); margin-bottom: 14px; }
+    .step h3 { font-size: 16px; margin-bottom: 6px; } .step p { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.5; }
+    .lp-final { text-align: center; padding: 24px 0 72px; }
+    .lp-final h2 { font-size: clamp(1.4rem, 3vw, 2rem); letter-spacing: -.02em; margin-bottom: 18px; }
+    @media (max-width: 820px) { .grid3, .steps { grid-template-columns: 1fr; } }
+    @media (prefers-reduced-motion: reduce) { .rcard:hover { transform: none; } }
+  </style>
+</head>
+<body>
+  <header class="app-header">
+    <a class="brand" href="../index.html"><span class="logo" aria-hidden="true">🛡</span> ScrubShot <span class="tag">see it · scrub it</span></a>
+    <span class="spacer"></span>
+    <nav><a href="../index.html">All tools</a> <a class="btn btn-sm btn-primary" href="app.html" style="color:var(--accent-contrast)">Open the tool</a></nav>
+  </header>
+
+  <main>
+    <section class="lp lp-hero">
+      <span class="lp-eyebrow"><span class="dot"></span> 100% offline · nothing uploaded</span>
+      <h1>See what your photos are <span class="lk">secretly leaking</span>. Then erase it.</h1>
+      <p class="lp-sub">Every photo you share can carry your GPS location, camera serial number, and the exact second it was taken. ScrubShot shows you — then strips it clean. All in your browser; it even works with your wifi off.</p>
+      <div class="lp-cta">
+        <a class="btn btn-primary btn-lg" href="app.html">Scan a photo</a>
+        <a class="btn btn-lg" href="#how">How it works</a>
+      </div>
+      <div class="lp-trust" id="trust"></div>
+    </section>
+
+    <section class="lp lp-section">
+      <h2>What your photos quietly reveal</h2>
+      <p class="sub">A single JPEG from a phone or camera often hides all of this in its metadata:</p>
+      <div class="grid3" id="reveals"></div>
+    </section>
+
+    <section class="lp lp-section" id="how">
+      <h2>Three steps. Nothing leaves your device.</h2>
+      <div class="steps">
+        <div class="step"><h3>Drop your photos</h3><p>JPG, PNG, or WebP. Drag a batch in — they're read in memory, never uploaded.</p></div>
+        <div class="step"><h3>See the leaks</h3><p>ScrubShot reveals the GPS pin, camera, timestamp, and serial number hidden inside.</p></div>
+        <div class="step"><h3>Scrub clean</h3><p>One click strips the metadata losslessly. Download the clean file or the whole batch as a zip.</p></div>
+      </div>
+    </section>
+
+    <section class="lp lp-section">
+      <h2>Why ScrubShot</h2>
+      <div class="grid3" id="why"></div>
+    </section>
+
+    <section class="lp lp-final">
+      <h2>Don't hand strangers your home address.</h2>
+      <a class="btn btn-primary btn-lg" href="app.html">Open ScrubShot</a>
+    </section>
+  </main>
+
+  <footer class="app-footer">ScrubShot · runs 100% in your browser, even offline · <a href="../index.html">see all tools</a></footer>
+
+  <script src="../shared/app.js"></script>
+  <script>
+    const chk = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>';
+    document.getElementById("trust").innerHTML = ["No upload — ever", "No sign-up", "Works offline", "Open & free"].map((t) => "<span>" + chk + t + "</span>").join("");
+    const pin = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>';
+    const cam = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2Z"/><circle cx="12" cy="13" r="4"/></svg>';
+    const clk = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>';
+    document.getElementById("reveals").innerHTML = [
+      [pin, "Your exact location", "GPS coordinates pinpoint where the photo was taken — often your home, school, or workplace."],
+      [cam, "Your camera &amp; serial", "Make, model, lens, and the camera's unique serial number — a fingerprint that links all your photos."],
+      [clk, "The exact moment", "Date and time down to the second, plus the editing software you used."],
+    ].map(([i, h, p]) => '<div class="rcard"><div class="ic">' + i + "</div><h3>" + h + "</h3><p>" + p + "</p></div>").join("");
+    document.getElementById("why").innerHTML = [
+      [chk, "Genuinely private", "There is no server. Your photos are processed entirely on your device — verify it by going offline."],
+      [chk, "Lossless scrub", "Metadata is surgically removed without recompressing your image — same pixels, same quality."],
+      [chk, "Proof you can share", "Generate a clean “privacy card” showing what a photo was leaking, to warn friends."],
+    ].map(([i, h, p]) => '<div class="rcard safe"><div class="ic">' + i + "</div><h3>" + h + "</h3><p>" + p + "</p></div>").join("");
+    VT.injectFavicon("🛡", "#22c55e");
+  </script>
+</body>
+</html>

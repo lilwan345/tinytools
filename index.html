@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Free, private, in-browser tools</title>
+  <meta name="description" content="A small set of fast, free web tools that run 100% in your browser. No upload, no sign-up, no tracking." />
+  <link rel="stylesheet" href="shared/theme.css" />
+  <style>
+    .wrap { max-width: 980px; margin: 0 auto; padding: 0 20px; }
+    .hero { text-align: center; padding: 64px 20px 36px; }
+    .hero h1 { font-size: clamp(30px, 5vw, 46px); line-height: 1.08; margin-bottom: 14px; }
+    .hero h1 .grad { background: linear-gradient(120deg, #2563eb, #7c3aed, #db2777); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .hero p { font-size: 18px; color: var(--muted); max-width: 560px; margin: 0 auto; }
+    .pills { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-top: 20px; }
+    .pill { font-size: 13px; font-weight: 600; color: var(--text-2); background: var(--surface); border: 1px solid var(--border); border-radius: 99px; padding: 6px 13px; box-shadow: var(--shadow-sm); }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; padding: 24px 0 56px; }
+    .card { position: relative; display: flex; flex-direction: column; gap: 10px; padding: 22px; border-radius: var(--radius-lg); text-decoration: none; color: inherit; background: var(--surface); border: 1px solid var(--border); box-shadow: var(--shadow-sm); transition: transform var(--tap), box-shadow var(--tap), border-color var(--tap); }
+    a.card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); border-color: var(--border-strong); text-decoration: none; }
+    .card.soon { opacity: .72; pointer-events: none; }
+    .card .ico { width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center; font-size: 22px; color: #fff; box-shadow: var(--shadow-sm); }
+    .card h3 { font-size: 18px; display: flex; align-items: center; gap: 8px; }
+    .card p { color: var(--muted); font-size: 14.5px; line-height: 1.5; margin: 0; }
+    .tagchip { font-size: 11px; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; padding: 3px 8px; border-radius: 99px; }
+    .tag-live { color: #11633a; background: #d6f5e3; }
+    .tag-soon { color: #6b5b16; background: #f6edd0; }
+    .card .arrow { position: absolute; top: 22px; right: 20px; color: var(--muted-2); transition: transform var(--tap), color var(--tap); }
+    a.card:hover .arrow { transform: translate(3px, -3px); color: var(--accent); }
+  </style>
+</head>
+<body>
+  <header class="app-header">
+    <a class="brand" href="index.html"><span class="logo" aria-hidden="true">⬡</span> tinytools <span class="tag">in-browser · free</span></a>
+    <span class="spacer"></span>
+    <nav><a href="https://github.com/lilwan345/tinytools" target="_blank" rel="noopener">GitHub</a></nav>
+  </header>
+
+  <div class="wrap">
+    <section class="hero">
+      <h1>Fast, free tools that run <span class="grad">entirely in your browser</span></h1>
+      <p>No upload. No sign-up. No tracking. Your files and data never leave your device — because there is no server.</p>
+      <div class="pills">
+        <span class="pill">🔒 100% client-side</span>
+        <span class="pill">⚡ Instant</span>
+        <span class="pill">🆓 No account</span>
+      </div>
+    </section>
+
+    <section class="grid" id="grid"></section>
+  </div>
+
+  <footer class="app-footer">
+    Built as static files · runs offline · <a href="https://github.com/lilwan345/tinytools" target="_blank" rel="noopener">source</a>
+  </footer>
+
+  <script src="shared/app.js"></script>
+  <script>
+    const TOOLS = [
+      { id: "tableshot", name: "TableShot", glyph: "▦", color: "#2563eb", live: true,
+        desc: "Paste a table or CSV → a beautiful, shareable image. The Carbon of spreadsheets." },
+      { id: "scrubshot", name: "ScrubShot", glyph: "🛡", color: "#22c55e", live: true,
+        desc: "See what your photos secretly reveal (GPS, camera, time) — then strip the metadata in one click." },
+      { id: "pagestack", name: "PageStack", glyph: "▤", color: "#1d4ed8", live: true,
+        desc: "Merge, split, reorder & rotate PDFs in one visual workspace — files never leave your browser." },
+      { id: "hueproof", name: "HueProof", glyph: "◑", color: "#27272a", live: true,
+        desc: "Build color palettes with built-in WCAG contrast checks — and export them straight to code." },
+    ];
+    const grid = document.getElementById("grid");
+    grid.innerHTML = TOOLS.map((t) => {
+      const tag = t.live ? '<span class="tagchip tag-live">Live</span>' : '<span class="tagchip tag-soon">Soon</span>';
+      const arrow = t.live ? '<span class="arrow">' + VT.ICON.share.replace("currentColor", "currentColor") + "</span>" : "";
+      const inner =
+        '<div class="ico" style="background:linear-gradient(135deg,' + t.color + ',color-mix(in srgb,' + t.color + ' 70%,#000))">' + t.glyph + "</div>" +
+        "<h3>" + t.name + " " + tag + "</h3><p>" + t.desc + "</p>" + arrow;
+      return t.live
+        ? '<a class="card" href="' + t.id + '/">' + inner + "</a>"
+        : '<div class="card soon">' + inner + "</div>";
+    }).join("");
+    VT.injectFavicon("⬡", "#2563eb");
+  </script>
+</body>
+</html>

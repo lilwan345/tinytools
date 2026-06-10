@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OGForge — Make social cards & Open Graph images in your browser</title>
+  <meta name="description" content="Design Open Graph preview images, quote cards, and announcement cards entirely in your browser, then download the PNG. Free, no sign-up, no watermark." />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="OGForge — Make social cards in your browser" />
+  <meta property="og:description" content="Open Graph images, quote cards, announcement cards. Free, in-browser, no sign-up." />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="stylesheet" href="../shared/theme.css" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .lp { max-width: 1040px; margin: 0 auto; padding: 0 24px; }
+    .lp-hero { text-align: center; padding: 78px 0 8px; }
+    .lp-eyebrow { display: inline-flex; align-items: center; gap: 8px; font: 700 12px var(--font-ui); letter-spacing: .06em; text-transform: uppercase; color: var(--accent); background: var(--accent-soft); border: 1px solid color-mix(in srgb, var(--accent) 26%, transparent); padding: 6px 13px; border-radius: 99px; margin-bottom: 24px; }
+    .lp-hero h1 { font-family: var(--font-display); font-size: clamp(2.1rem, 5.6vw, 3.7rem); line-height: 1.05; letter-spacing: -.02em; max-width: 18ch; margin: 0 auto 18px; }
+    .lp-hero h1 .grad { background: linear-gradient(110deg, #e11d48, #fb7185 45%, #2563eb); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .lp-sub { font-size: clamp(1.05rem, 1.7vw, 1.22rem); color: var(--text-2); line-height: 1.55; max-width: 56ch; margin: 0 auto 30px; }
+    .lp-cta { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .btn-lg { padding: 15px 28px; font-size: 16px; border-radius: var(--radius); }
+    .lp-trust { display: flex; gap: 8px 20px; justify-content: center; flex-wrap: wrap; margin-top: 24px; font-size: 13px; color: var(--muted); }
+    .lp-trust span { display: inline-flex; align-items: center; gap: 6px; } .lp-trust svg { width: 15px; height: 15px; color: var(--accent); }
+    /* example cards */
+    .examples { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 46px auto 0; }
+    .ex { aspect-ratio: 1200/630; border-radius: 14px; overflow: hidden; box-shadow: var(--shadow-lg); display: flex; flex-direction: column; justify-content: center; padding: 22px; color: #fff; position: relative; }
+    .ex .ey { font: 700 9px var(--font-ui); letter-spacing: .14em; text-transform: uppercase; opacity: .9; margin-bottom: 8px; }
+    .ex .ti { font-family: var(--font-display); font-weight: 800; font-size: clamp(15px, 2.4vw, 22px); line-height: 1.1; }
+    .ex.c1 { background: radial-gradient(at 18% 20%, #e11d48, transparent 55%), radial-gradient(at 82% 28%, #2563eb, transparent 55%), #111827; text-align: center; align-items: center; }
+    .ex.c2 { background: linear-gradient(135deg, #4facfe, #00f2fe); color: #06283d; }
+    .ex.c3 { background: linear-gradient(135deg, #fa709a, #fee140); color: #3a1d2a; }
+    .ex.c3 .q { font-family: Georgia, serif; font-size: 40px; line-height: .6; opacity: .5; }
+    .lp-section { padding: 62px 0; } .lp-section h2 { font-family: var(--font-display); text-align: center; font-size: clamp(1.6rem, 3vw, 2.1rem); letter-spacing: -.01em; margin-bottom: 10px; }
+    .lp-section .sub { text-align: center; color: var(--muted); max-width: 52ch; margin: 0 auto 40px; }
+    .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .fcard { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 24px; }
+    .fcard h3 { font-family: var(--font-display); font-size: 17px; margin-bottom: 6px; } .fcard p { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.55; }
+    .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; counter-reset: s; }
+    .step { padding: 20px; } .step::before { counter-increment: s; content: counter(s); display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; font-family: var(--font-display); font-weight: 800; color: #fff; background: linear-gradient(135deg, #e11d48, #fb7185); margin-bottom: 14px; }
+    .step h3 { font-size: 16px; margin-bottom: 6px; } .step p { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.5; }
+    .lp-final { text-align: center; padding: 24px 0 80px; } .lp-final h2 { font-family: var(--font-display); font-size: clamp(1.5rem, 3vw, 2rem); margin-bottom: 20px; }
+    @media (max-width: 800px) { .grid3, .steps, .examples { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <header class="app-header">
+    <a class="brand" href="../index.html"><span class="logo" aria-hidden="true">▭</span> OGForge <span class="tag">social cards</span></a>
+    <span class="spacer"></span>
+    <nav><a href="../index.html">All tools</a> <a class="btn btn-sm btn-primary" href="app.html" style="color:var(--accent-contrast)">Open the tool</a></nav>
+  </header>
+
+  <main>
+    <section class="lp lp-hero">
+      <span class="lp-eyebrow">100% in your browser · no watermark</span>
+      <h1>Make a social card people <span class="grad">stop scrolling for</span>.</h1>
+      <p class="lp-sub">Open Graph preview images, quote cards, announcement cards — designed right here, no Figma, no Canva account. Pick a template, type, download the PNG.</p>
+      <div class="lp-cta"><a class="btn btn-primary btn-lg" href="app.html">Open OGForge</a> <a class="btn btn-lg" href="#how">How it works</a></div>
+      <div class="lp-trust" id="trust"></div>
+
+      <div class="examples">
+        <div class="ex c1"><div class="ey">viral-tools</div><div class="ti">Build viral tools in your browser</div></div>
+        <div class="ex c2"><div class="ey">Changelog</div><div class="ti">v2.0 is here — faster, cleaner, free</div></div>
+        <div class="ex c3"><div class="q">&ldquo;</div><div class="ti">The best tool is the one with no sign-up.</div></div>
+      </div>
+    </section>
+
+    <section class="lp lp-section">
+      <h2>One card maker, every use</h2>
+      <div class="grid3" id="feats"></div>
+    </section>
+
+    <section class="lp lp-section" id="how">
+      <h2>Template, type, download</h2>
+      <div class="steps">
+        <div class="step"><h3>Pick a template</h3><p>Centered, article, quote, statement, or announcement — sized for OG, Twitter, square, or story.</p></div>
+        <div class="step"><h3>Make it yours</h3><p>Type your text, drop a background or logo, tweak colors and fonts. Live preview the whole time.</p></div>
+        <div class="step"><h3>Download &amp; ship</h3><p>Grab the PNG and copy the ready-made og:image meta tags. Host the image, paste the tags, done.</p></div>
+      </div>
+    </section>
+
+    <section class="lp lp-final">
+      <h2>Your link deserves a better thumbnail.</h2>
+      <a class="btn btn-primary btn-lg" href="app.html">Open OGForge</a>
+    </section>
+  </main>
+
+  <footer class="app-footer">OGForge · social cards in your browser · <a href="../index.html">see all tools</a></footer>
+
+  <script src="../shared/app.js"></script>
+  <script>
+    const chk = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>';
+    document.getElementById("trust").innerHTML = ["Free, no sign-up", "No watermark", "5 templates", "OG / Twitter / Story sizes"].map((t) => "<span>" + chk + t + "</span>").join("");
+    document.getElementById("feats").innerHTML = [
+      ["Open Graph images", "The 1200×630 thumbnail that shows when your link is shared on X, LinkedIn, Slack, iMessage. Copy the meta tags too."],
+      ["Quote & announcement cards", "Post-ready cards you share directly — a punchy quote, a version launch, a big statement."],
+      ["Drop in your brand", "Background image with auto-readable scrim, your logo, avatar, @handle, and accent color. All local."],
+    ].map(([h, p]) => '<div class="fcard"><h3>' + h + "</h3><p>" + p + "</p></div>").join("");
+    VT.injectFavicon("▭", "#e11d48");
+  </script>
+</body>
+</html>

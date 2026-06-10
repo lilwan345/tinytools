@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ScrubShot — See what your photos leak, then erase it</title>
+  <meta name="description" content="Drag in a photo to see the hidden metadata it leaks — GPS location, camera, time, serial number — then strip it in one click. 100% in your browser. Nothing is uploaded." />
+  <link rel="stylesheet" href="../shared/theme.css" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="app-header">
+    <a class="brand" href="index.html" title="ScrubShot">
+      <span class="logo" aria-hidden="true">🛡</span>
+      ScrubShot <span class="tag">see it · scrub it</span>
+    </a>
+    <span class="spacer"></span>
+    <nav><a href="../index.html">All tools</a></nav>
+  </header>
+
+  <main class="workspace">
+    <aside class="queue">
+      <div class="trust" id="trustBar" title="Hook on fetch/XHR/sendBeacon counts any data sent off-device. Open DevTools → Network to verify."></div>
+      <div class="trust-hint">Don't take our word for it — turn off your wifi: everything keeps working. (Or watch DevTools → Network.)</div>
+      <div class="dropzone" id="dropzone" tabindex="0" role="button" aria-label="Add photos">
+        <div class="dz-ic" aria-hidden="true"></div>
+        <div class="dz-title">Drop photos here</div>
+        <div class="dz-sub">or click to choose · JPG, PNG, WebP<br>everything stays on your device</div>
+        <input type="file" id="fileInput" accept="image/jpeg,image/png,image/webp" multiple class="sr-only" />
+      </div>
+      <div class="file-list" id="fileList"></div>
+      <div class="batch-bar" id="batchBar" hidden>
+        <button class="btn btn-primary" id="btnBatch"></button>
+      </div>
+    </aside>
+
+    <section class="inspect">
+      <div class="inspect-inner" id="inspectInner" hidden></div>
+      <div class="empty" id="emptyState">
+        <div class="ic" aria-hidden="true"></div>
+        <div class="big">Drop a photo to scan it</div>
+        <div class="sub">ScrubShot reads the hidden metadata your photos carry — GPS location, camera model, exact time, serial number — and removes it. <b>Nothing is uploaded; it works with your wifi off.</b></div>
+      </div>
+    </section>
+  </main>
+
+  <div class="card-stage" aria-hidden="true"><div class="report-card" id="reportCard"></div></div>
+
+  <script src="vendor/exifr.umd.js"></script>
+  <script src="vendor/jszip.min.js"></script>
+  <script src="../shared/vendor/html-to-image.js"></script>
+  <script src="../shared/app.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
