@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PicPress — HEIC to JPG & compress images under any size limit</title>
+  <meta name="description" content="Convert iPhone HEIC photos, compress any image to fit under a form's size limit, batch resize — all in your browser. Photos never uploaded. Free, no sign-up." />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="PicPress — shrink images without uploading them" />
+  <meta property="og:description" content="HEIC to JPG, fit under any KB limit, batch resize. 100% in your browser." />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="stylesheet" href="../shared/theme.css" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .lp { max-width: 980px; margin: 0 auto; padding: 0 24px; }
+    .lp-hero { text-align: center; padding: 84px 0 10px; }
+    .lp-eyebrow { display: inline-flex; align-items: center; gap: 8px; font-size: 12.5px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); margin-bottom: 26px; }
+    .lp-hero h1 { font-size: clamp(2.2rem, 6.4vw, 4rem); line-height: 1.02; letter-spacing: -.04em; font-weight: 800; max-width: 16ch; margin: 0 auto 22px; }
+    .lp-hero h1 em { font-style: normal; color: var(--accent); }
+    .lp-sub { font-size: clamp(1.05rem, 1.7vw, 1.25rem); color: var(--text-2); line-height: 1.55; max-width: 52ch; margin: 0 auto 34px; }
+    .lp-cta { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .btn-lg { padding: 15px 28px; font-size: 16px; border-radius: 13px; }
+    .lp-trust { display: flex; gap: 10px 22px; justify-content: center; flex-wrap: wrap; margin-top: 26px; font-size: 13.5px; color: var(--muted); font-weight: 600; }
+    .lp-trust span { display: inline-flex; align-items: center; gap: 6px; }
+    .lp-trust svg { width: 15px; height: 15px; color: var(--accent); }
+    /* before→after demo chip */
+    .demo { display: flex; gap: 14px; justify-content: center; align-items: center; margin: 52px auto 0; flex-wrap: wrap; }
+    .dchip { background: var(--surface); border-radius: 16px; box-shadow: var(--shadow-md); padding: 18px 24px; text-align: left; }
+    .dchip .lbl { font-size: 11px; font-weight: 800; letter-spacing: .07em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+    .dchip .val { font-size: 24px; font-weight: 800; letter-spacing: -.02em; }
+    .dchip.out .val { color: var(--accent); }
+    .darrow { font-size: 26px; color: var(--muted-2); font-weight: 800; }
+    .dpct { background: var(--success-soft); color: var(--success); font-weight: 800; padding: 6px 14px; border-radius: 99px; font-size: 14px; }
+    .lp-section { padding: 76px 0 16px; }
+    .lp-section h2 { text-align: center; font-size: clamp(1.6rem, 3.2vw, 2.2rem); letter-spacing: -.03em; margin-bottom: 12px; }
+    .lp-section .sub { text-align: center; color: var(--muted); max-width: 52ch; margin: 0 auto 42px; }
+    .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .fcard { background: var(--surface); border-radius: 16px; box-shadow: var(--shadow-md); padding: 26px 22px; }
+    .fcard h3 { font-size: 17px; margin-bottom: 7px; letter-spacing: -.01em; }
+    .fcard p { margin: 0; color: var(--muted); font-size: 14.5px; line-height: 1.55; }
+    .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; counter-reset: s; }
+    .step { padding: 22px; }
+    .step::before { counter-increment: s; content: counter(s); display: grid; place-items: center; width: 36px; height: 36px; border-radius: 50%; font-weight: 800; color: #fff; background: linear-gradient(135deg, #c2410c, #f97316); margin-bottom: 14px; box-shadow: var(--shadow-sm); }
+    .step h3 { font-size: 16px; margin-bottom: 6px; } .step p { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.5; }
+    .lp-final { text-align: center; padding: 36px 0 92px; }
+    .lp-final h2 { font-size: clamp(1.6rem, 3.4vw, 2.3rem); letter-spacing: -.03em; margin-bottom: 22px; }
+    @media (max-width: 800px) { .grid3, .steps { grid-template-columns: 1fr; } .lp-hero { padding-top: 56px; } }
+  </style>
+</head>
+<body>
+  <header class="app-header">
+    <a class="brand" href="../index.html"><span class="logo" aria-hidden="true">▣</span> PicPress <span class="tag">shrink it, keep it private</span></a>
+    <span class="spacer"></span>
+    <nav><a href="../index.html">All tools</a> <a class="btn btn-sm btn-primary" href="app.html">Open the tool</a></nav>
+  </header>
+
+  <main>
+    <section class="lp lp-hero">
+      <span class="lp-eyebrow">No upload · works offline · free</span>
+      <h1>The photo is 4 MB. The form wants <em>200 KB</em>.</h1>
+      <p class="lp-sub">PicPress squeezes any image under any size limit, turns iPhone HEIC photos into JPGs that open everywhere, and batch-resizes — entirely on your device. Your photos are never uploaded anywhere.</p>
+      <div class="lp-cta"><a class="btn btn-primary btn-lg" href="app.html">Open PicPress</a> <a class="btn btn-lg" href="#how">How it works</a></div>
+      <div class="lp-trust" id="trust"></div>
+
+      <div class="demo" aria-hidden="true">
+        <div class="dchip"><div class="lbl">IMG_2041.heic</div><div class="val">4.2 MB</div></div>
+        <span class="darrow">→</span>
+        <div class="dchip out"><div class="lbl">IMG_2041.jpg</div><div class="val">187 KB</div></div>
+        <span class="dpct">−96%</span>
+      </div>
+    </section>
+
+    <section class="lp lp-section">
+      <h2>Built for the three classic headaches</h2>
+      <div class="grid3" id="feats"></div>
+    </section>
+
+    <section class="lp lp-section" id="how">
+      <h2>Drop, press, done</h2>
+      <div class="steps">
+        <div class="step"><h3>Drop your images</h3><p>HEIC, JPG, PNG, WebP — one or a whole batch. They're read in memory, never uploaded.</p></div>
+        <div class="step"><h3>Set the limit</h3><p>Type the size the form demands ("200 KB") — PicPress finds the best quality that fits. Or pick a quality and resize.</p></div>
+        <div class="step"><h3>Download</h3><p>Grab files one by one or as a zip, with metadata (GPS, camera) stripped automatically.</p></div>
+      </div>
+    </section>
+
+    <section class="lp lp-final">
+      <h2>Stop emailing yourself smaller photos.</h2>
+      <a class="btn btn-primary btn-lg" href="app.html">Open PicPress</a>
+    </section>
+  </main>
+
+  <footer class="app-footer">PicPress · images shrunk on your device · <a href="../index.html">see all tools</a></footer>
+
+  <script src="../shared/app.js"></script>
+  <script>
+    const chk = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>';
+    document.getElementById("trust").innerHTML = ["Photos never uploaded", "HEIC supported", "Metadata stripped", "No sign-up"].map((t) => "<span>" + chk + t + "</span>").join("");
+    document.getElementById("feats").innerHTML = [
+      ["“Max file size: 200 KB”", "Visa portals, job applications, school systems. Type the limit — PicPress bisects the quality until your image fits, downscaling only if it must."],
+      ["“HEIC won't open”", "iPhone photos that Windows, websites and forms reject become normal JPGs in one drop. The decoder runs in your browser."],
+      ["“It's a whole folder”", "Batch-convert and resize dozens at once, see the before → after for each, download everything as a zip."],
+    ].map(([h, p]) => '<div class="fcard"><h3>' + h + "</h3><p>" + p + "</p></div>").join("");
+    VT.injectFavicon("▣", "#ea580c");
+  </script>
+</body>
+</html>

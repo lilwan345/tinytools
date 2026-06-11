@@ -8,12 +8,12 @@ Each tool is built around a simple idea: the kind of thing people search for ("d
 
 | Tool | What it does | Status |
 |------|--------------|--------|
-| [**TableShot**](tableshot/) | Paste a table or CSV → a beautiful, shareable image (edit cells in place) | ✅ Live |
+| [**PicPress**](picpress/) | HEIC → JPG, compress under any KB limit, batch resize — photos never uploaded | ✅ Live |
 | [**ScrubShot**](scrubshot/) | See what your photos leak (GPS, serial…) & strip it losslessly — works offline | ✅ Live |
 | [**PageStack**](pagestack/) | Merge, split, reorder & rotate PDFs in one visual workspace — no upload | ✅ Live |
 | [**HueProof**](hueproof/) | Palettes with a WCAG contrast matrix + export to CSS/Tailwind/tokens | ✅ Live |
 
-Retired from the hub (kept in the repo for reference): `badgeforge/`, `ogforge/` — both competed head-on with free incumbents (shields.io, Canva) on their home turf; the suite now plays only to its strengths: byte-level engineering + privacy.
+Retired from the hub (kept in the repo for reference): `badgeforge/`, `ogforge/`, `tableshot/` — both competed head-on with free incumbents (shields.io, Canva) on their home turf; the suite now plays only to its strengths: byte-level engineering + privacy.
 
 ## Run locally
 

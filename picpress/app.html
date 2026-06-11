@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PicPress — Convert, compress & resize images in your browser</title>
+  <meta name="description" content="HEIC to JPG, compress any image to fit under a size limit, batch resize — 100% in your browser. Your photos are never uploaded. Free, no sign-up." />
+  <link rel="stylesheet" href="../shared/theme.css" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="app-header">
+    <a class="brand" href="index.html" title="PicPress"><span class="logo" aria-hidden="true">▣</span> PicPress <span class="tag">shrink it, keep it private</span></a>
+    <span class="spacer"></span>
+    <nav><a href="../index.html">All tools</a></nav>
+  </header>
+
+  <main class="workspace">
+    <aside class="settings">
+      <h2>Output</h2>
+      <div class="ctl">
+        <span class="ctl-label">Format</span>
+        <div class="seg" id="fmtSeg" role="group" aria-label="Output format">
+          <button data-v="jpeg" aria-pressed="true">JPG</button>
+          <button data-v="webp" aria-pressed="false">WebP</button>
+          <button data-v="png" aria-pressed="false">PNG</button>
+        </div>
+      </div>
+
+      <h2>Size</h2>
+      <div class="ctl">
+        <div class="seg" id="modeSeg" role="group" aria-label="Compression mode">
+          <button data-v="target" aria-pressed="true">Fit under…</button>
+          <button data-v="quality" aria-pressed="false">Quality</button>
+        </div>
+      </div>
+      <div class="ctl" id="targetRow">
+        <span class="ctl-label">Max file size</span>
+        <div class="kb-row"><input type="number" id="targetKB" value="200" min="10" max="10000" step="10" aria-label="Max kilobytes" /><span class="unit">KB</span></div>
+        <div class="hint" style="margin-top:6px">The “form says max 200 KB” mode — PicPress finds the best quality that fits.</div>
+      </div>
+      <div class="ctl" id="qualityRow" hidden>
+        <span class="ctl-label">Quality</span>
+        <div class="range-row"><input type="range" id="quality" min="50" max="95" value="82" /><output id="qualityOut">82</output></div>
+      </div>
+      <div class="note" id="pngNote" hidden>PNG is lossless — quality and size targets don't apply. Use JPG or WebP to shrink photos.</div>
+
+      <h2>Resize</h2>
+      <div class="ctl">
+        <div class="seg" id="resizeSeg" role="group" aria-label="Resize">
+          <button data-v="none" aria-pressed="true">Original</button>
+          <button data-v="maxdim" aria-pressed="false">Max edge</button>
+          <button data-v="half" aria-pressed="false">50%</button>
+          <button data-v="quarter" aria-pressed="false">25%</button>
+        </div>
+      </div>
+      <div class="ctl" id="maxdimRow" hidden>
+        <span class="ctl-label">Longest edge (px)</span>
+        <div class="kb-row"><input type="number" id="maxDim" value="1600" min="320" max="8000" step="80" aria-label="Max dimension" /><span class="unit">px</span></div>
+      </div>
+
+      <div class="note">Photos are re-encoded on your device — <b>metadata (GPS, camera) is stripped automatically</b> and nothing is ever uploaded. Works offline.</div>
+    </aside>
+
+    <section class="stage">
+      <div class="toolbar">
+        <label class="btn btn-sm" for="fileInput" id="btnAdd"></label>
+        <input type="file" id="fileInput" accept="image/jpeg,image/png,image/webp,image/heic,image/heif,.heic,.heif" multiple class="sr-only" />
+        <span class="saved" id="savedLine"></span>
+        <span class="spacer"></span>
+        <button class="btn btn-sm btn-ghost" id="btnClear" hidden>Clear</button>
+        <button class="btn btn-sm" id="btnZip" hidden></button>
+        <button class="btn btn-sm btn-primary" id="btnConvert" hidden></button>
+      </div>
+      <div class="grid-scroll">
+        <div class="dropwrap" id="dropwrap">
+          <div class="dropzone" id="dropzone" tabindex="0" role="button" aria-label="Add images">
+            <div class="dz-ic" aria-hidden="true"></div>
+            <div class="dz-title">Drop images — HEIC, JPG, PNG, WebP</div>
+            <div class="dz-sub">Convert iPhone HEIC photos, squeeze under any upload limit, batch-resize.<br /><b>Nothing is uploaded</b> — it all happens on your device.</div>
+          </div>
+        </div>
+        <div class="file-grid" id="fileGrid" hidden></div>
+      </div>
+    </section>
+  </main>
+
+  <script src="vendor/jszip.min.js"></script>
+  <script src="../shared/app.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
