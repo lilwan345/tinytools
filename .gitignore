@@ -1,2 +1,6 @@
 .DS_Store
 *.log
+
+# Planning notes stay local
+docs/superpowers/
+*/design-system/
