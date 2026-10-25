@@ -1,19 +1,39 @@
 # tinytools
 
-A small set of fast, free web tools that run **100% in your browser**. No upload, no sign-up, no tracking — there is no server. Everything is static files, deployable to GitHub Pages for $0.
+[![Live site](https://img.shields.io/badge/live-lilwan345.github.io%2Ftinytools-4f46e5)](https://lilwan345.github.io/tinytools/)
+![No server](https://img.shields.io/badge/server-none-16a34a)
+![Vanilla JS](https://img.shields.io/badge/vanilla%20JS-no%20build%20step-f7df1e)
+[![MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 
-Each tool is built around a simple idea: the kind of thing people search for ("do X online free") or that produces something they'll *share* — optimized to be cleaner, faster, and more private than the ad-stuffed incumbents.
+Four free tools that run **entirely in your browser**. No upload, no sign-up,
+no tracking, because there is no server: it's static files on GitHub Pages,
+and your files never leave your device.
+
+**[Open tinytools →](https://lilwan345.github.io/tinytools/)**
+
+[![The tinytools hub: PicPress, ScrubShot, PageStack and HueProof](assets/hub.png)](https://lilwan345.github.io/tinytools/)
 
 ## The tools
 
-| Tool | What it does | Status |
-|------|--------------|--------|
-| [**PicPress**](picpress/) | HEIC → JPG, compress under any KB limit, batch resize — photos never uploaded | ✅ Live |
-| [**ScrubShot**](scrubshot/) | See what your photos leak (GPS, serial…) & strip it losslessly — works offline | ✅ Live |
-| [**PageStack**](pagestack/) | Merge, split, reorder & rotate PDFs in one visual workspace — no upload | ✅ Live |
-| [**HueProof**](hueproof/) | Palettes with a WCAG contrast matrix + export to CSS/Tailwind/tokens | ✅ Live |
+| Tool | What it does | How it works |
+|---|---|---|
+| [**PicPress**](https://lilwan345.github.io/tinytools/picpress/) | HEIC → JPG, compress any photo to fit under a size limit ("max 200 KB"), batch resize, download as a zip | Bisects JPEG quality until the file fits the budget. If even the lowest quality is too big, it shrinks the dimensions and tries again. HEIC is decoded by a lazy-loaded WASM build of heic2any. |
+| [**ScrubShot**](https://lilwan345.github.io/tinytools/scrubshot/) | Shows what your photos leak (GPS location, camera, timestamps), then strips it | Lossless byte surgery: it walks the file's segments and drops only the metadata ones (JPEG EXIF/XMP, IPTC and comments; PNG text and EXIF chunks; WebP EXIF/XMP), so not a single pixel is re-encoded. |
+| [**PageStack**](https://lilwan345.github.io/tinytools/pagestack/) | Merge, split, reorder, rotate and delete PDF pages in one visual workspace | pdf.js renders the page thumbnails; pdf-lib copies the chosen pages, in your order and rotation, into a new PDF. |
+| [**HueProof**](https://lilwan345.github.io/tinytools/hueproof/) | Build a palette with a live WCAG 2.1 contrast matrix, export it to CSS variables, Tailwind, SCSS or JSON | Computes relative luminance and the contrast ratio for every color pair, graded against AA and AAA for normal and large text. |
 
-Retired from the hub (kept in the repo for reference): `badgeforge/`, `ogforge/`, `tableshot/` — both competed head-on with free incumbents (shields.io, Canva) on their home turf; the suite now plays only to its strengths: byte-level engineering + privacy.
+## Why these four
+
+Each one targets something people search for again and again ("compress
+photo to 200 KB", "remove location from photo", "merge PDF") where the usual
+answer is an ad-heavy site that uploads your files. Doing it in the browser
+is faster and actually private.
+
+I first shipped a different fourth tool, TableShot (pretty table images from
+CSV). It competed with a plain screenshot, so I replaced it with PicPress,
+which solves a problem people hit every week. TableShot and two earlier
+experiments (`badgeforge/`, `ogforge/`, which competed head-on with
+shields.io and Canva) stay in the repo for reference but are off the hub.
 
 ## Run locally
 
@@ -21,10 +41,19 @@ Retired from the hub (kept in the repo for reference): `badgeforge/`, `ogforge/`
 ./serve.sh        # http://localhost:8000
 ```
 
-## Design system
+Any static file server works; there is no build step.
 
-Shared design tokens and components live in [`shared/`](shared/) (`theme.css`, `app.js`). Each tool is a self-contained folder of static files and reuses the shared system. No framework, no build step.
+## Structure
+
+```
+index.html          the hub
+picpress/ scrubshot/ pagestack/ hueproof/
+                    one self-contained folder per tool (index.html landing page,
+                    app.html + app.js + style.css for the tool itself)
+shared/             design tokens (theme.css), small helpers (app.js), self-hosted fonts
+*/vendor/           pinned third-party libraries, served locally (no CDN calls)
+```
 
 ## License
 
-MIT
+MIT, see [LICENSE](LICENSE).
